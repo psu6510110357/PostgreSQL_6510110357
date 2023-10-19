@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block body %}
+<ul class="nav justify-content-center" style="padding-top: 1em ;">
+  <li class="nav-item">
+    <a class="btn btn-primary" style="width: 110px;" href="{{ url_for('notes_create') }}"> + Create</a>
+  </li>
+</ul>
+{% for note in notes %}
+<div class="card my-3">
+  <div class="card-body">
+    <h4 class="card-title">{{ note.title }}</h4>
+    <div class="card-text my-3">
+      {{ note.description }}
+    </div>
+    <div class="card-footer text-muted">
+      Tags: 
+      {% for t in note.tags %}
+        <a href="{{ url_for('tags_view', tag_name=t.name) }}">{{ t.name }}</a>
+      {% endfor %}
+      <br>
+      Last update: {{ note.updated_date }}
+    </div>
+      <div class="text-center">
+        <a href="{{ url_for('notes_edit', note_id=note.id) }}" class="btn btn-primary text-black" style="width: 110px; background-color: #ffff00;">Edit</a>
+        <form method="POST" action="{{ url_for('notes_delete', note_id=note.id) }}" style="display: inline;">
+          <button type="submit" class="btn btn-danger" style="width: 110px;">Delete</button>
+        </form>
+      </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

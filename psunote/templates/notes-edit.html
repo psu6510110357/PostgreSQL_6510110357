@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Edit Note: {{ note.title }}{% endblock %}
+{% block body %}
+
+<h3 class="my-2">Edit Note</h3>
+<form method="POST">
+  {{ form.hidden_tag() }}
+  <div class="form-group my-3">
+    <label for="title">Title</label>
+    <input type="text" class="form-control" id="title" name="title" value="{{ form.title.data }}">
+  </div>
+  <div class="form-group my-3">
+    <label for="description">Description</label>
+    <textarea class="form-control" id="description" name="description" rows="10">{{ form.description.data }}</textarea>
+  </div>
+  <div class="form-group my-3">
+    <label for="tags">Tags</label>
+    <input type="text" class="form-control" id="tags" name="tags" value="{% for tag in form.tags.data %}{{ tag.name }}{% if not loop.last %}, {% endif %}{% endfor %}">
+</div>
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+{% endblock %}
+
